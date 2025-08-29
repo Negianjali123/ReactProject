@@ -1,3 +1,10 @@
+/* :root {
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(161, 28, 28, 0));// not in use
+} */
+
+.colournav {
+  background-color: var(--bs-success-bg-subtle);
+}
 .App {
   text-align: center;
 }
@@ -13,6 +20,14 @@
   }
 }
 
+@media (min-width >=992px) and (max-width: 1199.98px) {
+  /* Your CSS styles here */
+  .card .registercardsize{
+    max-width: 900px;
+    font-size: 18px;
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,10 +38,26 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+/* .indexval{
+  position: relative;
+  z-index: -1;
+} */
+ .titlename{
+  color: var(--bs-green);
+ }
+.btnhover{
+  background-color: var(--bs-green);
+  transition: transform 0.3s ease-in-out;
+}
+.btnhover:hover{
+  background-color: var(--bs-info-text-emphasis);
+  transform: translate(-5px,-3px); 
+  color: white;
+}
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
@@ -35,4 +66,5 @@
   to {
     transform: rotate(360deg);
   }
+  
 }
