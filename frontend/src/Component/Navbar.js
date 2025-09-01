@@ -1,5 +1,21 @@
+import { useEffect } from 'react';
 import '../App.css';
+import {useUser} from './usercontext'
+import { decryptData } from '../utils/crypto';
+
 export default function Navbar() {
+    const { encryptedName,setEncryptedName} = useUser();
+    
+    useEffect(() => {
+
+        if (encryptedName) {
+            const decryptedUsername = decryptData(encryptedName);
+            setEncryptedName(decryptedUsername);
+        } else {
+            setEncryptedName(null);
+        }
+    }, [encryptedName]);
+
     return (
         <nav className="navbar navbar-expand-lg colournav sticky-sm-top  z-1">
             <div className="container-fluid">
@@ -22,18 +38,26 @@ export default function Navbar() {
                     </ul>
 
                     {/* Right-side Avatar dropdown */}
+                    
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
+
+                    {encryptedName ? (
+                        <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {encryptedName}
+                        </a>
+                        <ul className="dropdown-menu dropdown-menu-end">
+                            <li><a className="dropdown-item" href="/">LOGOUT</a></li>
+                        </ul>
+                    </li>
+                       
+                    ) : (
                         <li>
-                            <a href="/registration" className='btn btn-round btnhover w-100'>Sign Up</a>
-                        </li>
-                        {/* <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                AVATAR
-                            </a>
-                            <ul className="dropdown-menu dropdown-menu-end">
-                                <li><a className="dropdown-item" href="/">LOGOUT</a></li>
-                            </ul>
-                        </li> */}
+                        <a href="/registration" className='btn btn-round btnhover w-100'>Sign Up</a>
+                    </li>
+                    )}
+                        
+                        
                     </ul>
                 </div>
             </div>

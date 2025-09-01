@@ -27,7 +27,11 @@
     font-size: 18px;
   }
 }
-
+.validationerror {
+  color:red;
+  font-weight: 400;
+  font-size: 14px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
