@@ -1,10 +1,8 @@
-import { useState } from 'react';
-// import {UserContext} from '../Component/usercontext'
+import { useState,useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../Component/usercontext';
-// import api from '../utils/api'
+import UserContext from "../Component/context/UserContext";
+import api from '../utils/api'
 import { encryptData } from '../utils/crypto'
-import axios from 'axios';
 import { SigninFormSchema } from '../schema/loginSchema'
 
 
@@ -12,17 +10,31 @@ export default function Home() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [fieldErrors, setfieldErrors] = useState({ email: '', password: '' })
-    const { setEncryptedName } = useUser();
-    // const [loading, setLoading] = useState(true);
-    //  useEffect(()=>{
-    //     const router = useRouter();
-
-    //  },[fieldErrors])
+    const { encryptedName,setEncryptedName } = useContext(UserContext);
+    
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const handleSubmit = async (e) => {
 
+    useEffect(() => {
+        localStorage.removeItem('user');
+        setEncryptedName(null);
+        const checkSession = async () => {
+
+          try {
+            const response = await api.get('/session-check');
+            if (response.data.success) {
+              console.log("Session is valid:", response.data);
+            }
+          } catch (error) {
+            console.error("Session invalid or error:", error);
+          }
+        };
+        checkSession();
+      }, [encryptedName]);
+      
+      
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const result = SigninFormSchema.safeParse(formData);
         if (!result.success) {
@@ -35,8 +47,7 @@ export default function Home() {
         }
         try {
             //   setLoading(true);
-
-            await axios.post('http://localhost:7000/login', formData, {
+            await api.post('http://localhost:7000/login', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -45,7 +56,7 @@ export default function Home() {
                     let username = res.data.user.name;
                     let name = encryptData(username)
                     setEncryptedName(name);
-                    navigate('/about');
+                    navigate('/user/dashboard');
                 })
                 .catch(err => {
                     let data = err.response?.data
@@ -83,10 +94,6 @@ export default function Home() {
                                 <input className="form-control" id="InputPassword" onChange={handleChange} value={formData.password} name='password' />
                                 {fieldErrors.password && <p className="validationerror mt-1">{fieldErrors.password}</p>}
                             </div>
-                            {/* <div className="mb-3 form-check">
-                                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                    <label className="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div> */}
                             <button type="submit" className="btn btnhover w-100 mb-3">Submit</button>
 
                         </form>

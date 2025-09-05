@@ -1,19 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect,useContext,useState } from 'react';
 import '../App.css';
-import {useUser} from './usercontext'
+import UserContext from './context/UserContext';
 import { decryptData } from '../utils/crypto';
 
 export default function Navbar() {
-    const { encryptedName,setEncryptedName} = useUser();
-    
-    useEffect(() => {
+    let { encryptedName } = useContext(UserContext);
+    const [username, setUsername] = useState(null);
 
-        if (encryptedName) {
-            const decryptedUsername = decryptData(encryptedName);
-            setEncryptedName(decryptedUsername);
-        } else {
-            setEncryptedName(null);
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        try {
+
+            localStorage.removeItem("user");
+            setUsername(null);
+            // setUser(null);
+            // await api.get('/user/logout');
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout failed:', error);
         }
+    }
+    useEffect(() => {
+        // let decryptedName = "";
+        if(encryptedName)
+        {
+            try {
+                let decryptedUsername = decryptData(encryptedName);
+                setUsername(decryptedUsername);
+            } catch (err) {
+                setUsername('');
+            }
+        }
+        
     }, [encryptedName]);
 
     return (
@@ -38,26 +56,26 @@ export default function Navbar() {
                     </ul>
 
                     {/* Right-side Avatar dropdown */}
-                    
+
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
 
-                    {encryptedName ? (
-                        <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {encryptedName}
-                        </a>
-                        <ul className="dropdown-menu dropdown-menu-end">
-                            <li><a className="dropdown-item" href="/">LOGOUT</a></li>
-                        </ul>
-                    </li>
-                       
-                    ) : (
-                        <li>
-                        <a href="/registration" className='btn btn-round btnhover w-100'>Sign Up</a>
-                    </li>
-                    )}
-                        
-                        
+                        {username ? (
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {username}
+                                </a>
+                                <ul className="dropdown-menu dropdown-menu-end">
+                                    <li><a className="dropdown-item"  href="/"  onClick={handleLogout} >LOGOUT</a></li>
+                                </ul>
+                            </li>
+
+                        ) : (
+                            <li>
+                                <a href="/registration" className='btn btn-round btnhover w-100'>Sign Up</a>
+                            </li>
+                        )}
+
+
                     </ul>
                 </div>
             </div>
