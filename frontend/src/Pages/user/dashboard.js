@@ -67,11 +67,10 @@ export default function Dashbord() {
 
     return (
         <>
-
             <div className="container-fluid mt-5" >
                 <div className="row mb-5">
                     {mydata.map((item) => (
-                        <div className="col-sm-4 mt-3" key={item.id}> 
+                        <div className="col-sm-4 mt-3" key={item.id}>
                             <div className="card">
                                 <div className="text-center">
                                     <img
@@ -118,7 +117,17 @@ export default function Dashbord() {
                         </div>
                     ))}
                 </div>
+                <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
             </div>
+            
 
         </>
     );
