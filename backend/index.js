@@ -11,7 +11,7 @@ app.use(cookieParser());
 import cors from 'cors'
 
 app.use(cors({
-  origin: 'http://localhost:3001',  // allow your React app origin
+  origin: 'http://localhost:3000',  // allow your React app origin
   credentials: true,                 // if you use cookies or auth headers
 }));
 app.use(express.json());

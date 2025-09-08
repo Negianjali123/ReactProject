@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Dining Table",
+        "price": 50000,
+        "QUANTITY": 1,
+        "image": "/images/dining.jpeg"
+    },
+    {
+        "id": 2,
+        "name": "Face-wash",
+        "price": 200,
+        "QUANTITY": 1,
+        "image": "/images/facewash.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "Soccer-ball",
+        "price": 500,
+        "QUANTITY": 1,
+        "image": "/images/soccer-ball.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Wooden Table",
+        "price": 3000,
+        "QUANTITY": 1,
+        "image": "/images/table.webp"
+    }
+]

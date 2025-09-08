@@ -27,6 +27,9 @@
     font-size: 18px;
   }
 }
+.disabled{
+  display: none;
+}
 .validationerror {
   color:red;
   font-weight: 400;
@@ -60,6 +63,11 @@
 }
 .App-link {
   color: #61dafb;
+}
+.imagesizeview{
+  height: 300px;
+  object-fit: cover;
+ 
 }
 .app-loader {
   background: rgb(255 255 255 / 80%) ;

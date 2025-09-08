@@ -24,7 +24,7 @@ export default function Home() {
           try {
             const response = await api.get('/session-check');
             if (response.data.success) {
-              console.log("Session is valid:", response.data);
+            //   console.log("Session is valid:", response.data);
             }
           } catch (error) {
             console.error("Session invalid or error:", error);
