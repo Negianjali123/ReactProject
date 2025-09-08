@@ -73,6 +73,7 @@ export default function Home() {
             console.error('Network error:', err);
         }
     };
+    
     // if (loading) return <div className="loader" ></div>;
     return (
         <>
