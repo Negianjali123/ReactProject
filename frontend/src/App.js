@@ -7,13 +7,15 @@ import { Contact } from './Pages/contact';
 import Navbar from './Component/Navbar';
 import Dashbord from './Pages/user/dashboard';
 import Registration from './Pages/registration';
+import AddToCard from './Pages/user/addtocard';
 import './App.css';
 
 function App() {
   return (
     <>
-      <UserProvider>
+      
         <BrowserRouter>
+        <UserProvider>
           {/* Navigation */}
           <Navbar />
           {/* Routes */}
@@ -22,10 +24,13 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
+            
             <Route path="/user/dashboard" element={<Dashbord />} />
+            <Route path="/user/addtocard" element={<AddToCard />} />
           </Routes>
+          </UserProvider>
         </BrowserRouter>
-      </UserProvider>
+      
     </>
   );
 }

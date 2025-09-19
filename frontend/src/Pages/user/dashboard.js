@@ -1,10 +1,11 @@
 import { useEffect, useState, useReducer } from "react";
 import api from "../../utils/api";
+import "../../App.css";
 import { useNavigate } from 'react-router-dom';
 import cardData from "./card-data.json"; // Renamed to avoid naming conflict
 
 // Reducer function
-const reducer = (state, action) => {
+const reducert = (state, action) => {
     switch (action.type) {
         case "INCREASE":
             return state.map((item) => {
@@ -28,7 +29,7 @@ const reducer = (state, action) => {
 export default function Dashbord() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [mydata, dispatch] = useReducer(reducer, cardData); //  Proper initialization imporatant
+    const [mydata, dispatch] = useReducer(reducert, cardData); //  Proper initialization imporatant
 
     // Effect to fetch dashboard data
     useEffect(() => {
@@ -79,8 +80,12 @@ export default function Dashbord() {
                                         className="imagesizeview card-img-top"
                                     />
                                 </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">{item.name}</h5>
+                                <div className="card-body text-center">
+                                    <div    className="row">
+                                        <div className="col"><h5 className="card-title">{item.name}</h5></div>
+                                        
+                                        <div className="col"><button type="button" className="btn btn-warning" value={item.id}>Add to card</button></div>
+                                    </div>
                                     <div className="row">
                                         <div className="col">Prize</div>
                                         <div className="col">{item.price}</div>
@@ -118,12 +123,12 @@ export default function Dashbord() {
                     ))}
                 </div>
                 <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <ul className="pagination">
+                    <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+                    <li className="page-item"><a className="page-link" href="#">1</a></li>
+                    <li className="page-item"><a className="page-link" href="#">2</a></li>
+                    <li className="page-item"><a className="page-link" href="#">3</a></li>
+                    <li className="page-item"><a className="page-link" href="#">Next</a></li>
                 </ul>
             </nav>
             </div>

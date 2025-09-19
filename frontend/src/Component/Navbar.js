@@ -1,5 +1,6 @@
 import { useEffect,useContext,useState } from 'react';
 import '../App.css';
+// import {addimg} from './add-to-card-icon.png';
 import UserContext from './context/UserContext';
 import { decryptData } from '../utils/crypto';
 
@@ -60,6 +61,10 @@ export default function Navbar() {
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
 
                         {username ? (
+                            <>
+                            <li className="nav-item dropdown">
+                                <a href='/user/addtocard'><img src="/images/add-to-card-icon.png" alt="Avatar" className="cardicon"/></a>                                
+                         </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {username}
@@ -68,6 +73,8 @@ export default function Navbar() {
                                     <li><a className="dropdown-item"  href="/"  onClick={handleLogout} >LOGOUT</a></li>
                                 </ul>
                             </li>
+                             
+                         </>
 
                         ) : (
                             <li>
