@@ -26,6 +26,7 @@ const UserProvider = ({ children }) => {
    }
   }, [sessionpresent]);
 
+  
   // ✅ Sync usernav with localStorage when it changes
   useEffect(() => {
     if ((!encryptedName) && (!sessionpresent)) {
