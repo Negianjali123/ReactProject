@@ -2,7 +2,6 @@
 import { useState,useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import UserContext from "../context/UserContext";
-import { Cookies } from 'react-cookie'; // ✅ CORRECT
 
 
 const UserProvider = ({ children }) => {
@@ -33,7 +32,20 @@ const UserProvider = ({ children }) => {
       console.log("removing user in localStorage chala:", encryptedName);
       localStorage.removeItem("user");
       setEncryptedName('');
-    } else {
+    } 
+    else if((encryptedName) && (!sessionpresent))
+      {
+        console.log("else if removing user in localStorage chala:", encryptedName);
+        localStorage.removeItem("user");
+        setEncryptedName('');
+      }
+      else if((!encryptedName) && (sessionpresent))
+        {
+          console.log("else if removing user in localStorage chala:", encryptedName);
+          localStorage.removeItem("user");
+          setEncryptedName('');
+        }
+      else {
       console.log("Storing user in localStorage chala:", encryptedName);
       localStorage.setItem("user", encryptedName); 
       const storedUser = localStorage.getItem("user");
