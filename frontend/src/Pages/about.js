@@ -1,5 +1,11 @@
+import { useEffect } from "react";
+
 export default function About(){
-    console.log("About page is here");
+    useEffect(()=>{ 
+        console.log("About page is here");
+    }
+)
+    
     return(
         <>
         <h1>

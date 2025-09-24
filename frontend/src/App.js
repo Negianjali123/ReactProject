@@ -8,6 +8,7 @@ import Navbar from './Component/Navbar';
 import Dashbord from './Pages/user/dashboard';
 import Registration from './Pages/registration';
 import AddToCard from './Pages/user/addtocard';
+import {Produnctpage} from './Pages/productPage';
 import './App.css';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
-            
+            <Route path="/product/:id" element={<Produnctpage />} />
             <Route path="/user/dashboard" element={<Dashbord />} />
             <Route path="/user/addtocard" element={<AddToCard />} />
           </Routes>
