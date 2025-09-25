@@ -16,8 +16,8 @@ const UserProvider = ({ children }) => {
    
     if ((!encryptedName)) {
       console.log("removing user in localStorage chala:", encryptedName);
-      // localStorage.removeItem("user");
-      // setEncryptedName('');
+      localStorage.removeItem("user");
+      setEncryptedName('');
     }
     else {
       console.log("Storing user in localStorage chala:", encryptedName);

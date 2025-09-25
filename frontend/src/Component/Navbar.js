@@ -1,6 +1,6 @@
 import { useEffect,useContext,useState } from 'react';
 import '../App.css';
-// import {addimg} from './add-to-card-icon.png';
+import api from '../utils/api';
 import UserContext from './context/UserContext';
 import { decryptData } from '../utils/crypto';
 
@@ -9,13 +9,13 @@ export default function Navbar() {
     const [username, setUsername] = useState(null);
 
     const handleLogout = async (e) => {
+
         e.preventDefault();
         try {
 
             localStorage.removeItem("user");
             setUsername(null);
-            // setUser(null);
-            // await api.get('/user/logout');
+            await api.get('/user/logout');
             window.location.href = '/';
         } catch (error) {
             console.error('Logout failed:', error);

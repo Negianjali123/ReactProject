@@ -17,21 +17,22 @@ export default function Home() {
     };
 
     useEffect(() => {
-        localStorage.removeItem('user');
-        setEncryptedName(null);
+        // localStorage.removeItem('user');
+        // setEncryptedName(null);
         const checkSession = async () => {
-
           try {
             const response = await api.get('/session-check');
-            if (response.data.success) {
-            //   console.log("Session is valid:", response.data);
+            if (response.data.success && response.data.message === 'dashboard') {
+              navigate('/user/dashboard');
+            }else if(response.data.success && response.data.message === 'home'){
+              navigate('/');
             }
           } catch (error) {
             console.error("Session invalid or error:", error);
           }
         };
         checkSession();
-      }, [encryptedName]);
+      }, []);
       
       
     const handleSubmit = async (e) => {

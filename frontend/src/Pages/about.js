@@ -5,7 +5,10 @@ export default function About(){
         console.log("About page is here");
     }
 )
-    
+useEffect(()=>{ 
+    console.log("add [] About page is here");
+},[]
+)
     return(
         <>
         <h1>

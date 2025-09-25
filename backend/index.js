@@ -26,14 +26,16 @@ mongoose.connect(uri)
     try {
       if (req.cookies && req.cookies.session) {
         // console.log("Session cookie found:", req.cookies.session);
-          res.clearCookie('session', {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
-            path: '/',
-          });
+          // res.clearCookie('session', {
+          //   httpOnly: true,
+          //   secure: false,
+          //   sameSite: 'lax',
+          //   path: '/',
+          // });
       
-      return res.status(200).json({ success: true, message: 'get resquest done'});
+      return res.status(200).json({ success: true, message: 'dashboard'});
+    }else{
+      return res.status(200).json({ success: true, message: 'home' });
     }
    } catch (error) {
       console.error(error);
