@@ -12,7 +12,6 @@ export default function Navbar() {
 
         e.preventDefault();
         try {
-
             localStorage.removeItem("user");
             setUsername(null);
             await api.get('/user/logout');
