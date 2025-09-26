@@ -14,6 +14,7 @@ export default function AddToCard() {
                 }
             } catch (err) { 
                 navigate('/');
+                
             }
 
         }

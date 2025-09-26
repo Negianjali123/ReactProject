@@ -12,6 +12,7 @@ const CardQuantitySlice = createSlice({                  // createSlice is used 
                     return { ...item, QUANTITY: item.QUANTITY + 1 };
             
                 }
+                
                 return item;
             });
         case "decrement":

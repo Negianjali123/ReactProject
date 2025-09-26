@@ -11,8 +11,7 @@ import { addItem} from '../../Component/cardAction/CardSlice';
 export default function Dashbord() {
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
-    // const [loading, setLoading] = useState(true);
-
+    // const [loading, setLoading] = useState(true)
     // Effect to fetch dashboard data
     useEffect(() => {
         const fetchdata = async () => {
