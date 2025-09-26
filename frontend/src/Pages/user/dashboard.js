@@ -3,44 +3,26 @@ import api from "../../utils/api";
 import "../../App.css";
 import { useNavigate } from 'react-router-dom';
 import cardData from "./card-data.json"; // Renamed to avoid naming conflict
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem} from '../../Component/cardAction/CardSlice';
+// import { CountQuantity } from '../../Component/cardAction/Quantity';
 
-// Reducer function
-const reducert = (state, action) => {
-    switch (action.type) {
-        case "INCREASE":
-            return state.map((item) => {
-                if (item.id === action.id) {
-                    return { ...item, QUANTITY: item.QUANTITY + 1 };
-                }
-                return item;
-            });
-        case "DECREASE":
-            return state.map((item) => {
-                if (item.id === action.id && item.QUANTITY > 0) {
-                    return { ...item, QUANTITY: item.QUANTITY - 1 };
-                }
-                return item;
-            });
-        default:
-            return state;
-    }
-};
 
 export default function Dashbord() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
-    const [mydata, dispatch] = useReducer(reducert, cardData); //  Proper initialization imporatant
+    const dispatch = useDispatch(); 
+    // const [loading, setLoading] = useState(true);
 
     // Effect to fetch dashboard data
     useEffect(() => {
         const fetchdata = async () => {
             try {
-                setLoading(true);
+                // setLoading(true);
                 const response = await api.get('/user/dashboard');
                 if (!response.data.success) {
                     navigate('/');
                 } else {
-                    setLoading(false);
+                    // setLoading(false);
                 }
             } catch (error) {
                 navigate('/');
@@ -49,28 +31,24 @@ export default function Dashbord() {
         fetchdata();
     }, []);
 
-
-    const handleIncrease = (item) => {
-        dispatch({ type: "INCREASE", id: item.id });
-    };
-
-    const handleDecrease = (item) => {
-        dispatch({ type: "DECREASE", id: item.id });
-    };
-
-    if (loading) {
-        return (
-            <div className="d-flex justify-content-center text-center app-loader">
-                <div className="loader"></div>
-            </div>
-        );
+    const cardmanagebtn= (item) =>{
+        dispatch(addItem(item));
+        // dispatch(increment())
     }
+
+    // if (loading) {
+    //     return (
+    //         <div className="d-flex justify-content-center text-center app-loader">
+    //             <div className="loader"></div>
+    //         </div>
+    //     );
+    // }
 
     return (
         <>
             <div className="container-fluid mt-5" >
                 <div className="row mb-5">
-                    {mydata.map((item) => (
+                    {cardData.map((item) => (
                         <div className="col-sm-4 mt-3" key={item.id}>
                             <div className="card">
                                 <div className="text-center">
@@ -84,20 +62,22 @@ export default function Dashbord() {
                                     <div    className="row">
                                         <div className="col"><h5 className="card-title">{item.name}</h5></div>
                                         
-                                        <div className="col"><button type="button" className="btn btn-warning" value={item.id}>Add to card</button></div>
+                                       
                                     </div>
                                     <div className="row">
                                         <div className="col">Prize</div>
                                         <div className="col">{item.price}</div>
                                     </div>
                                     <div className="row mt-2">
+                                    <div className="col"><button type="button" className="btn btn-warning" value={item.id}
+                                    onClick={()=>cardmanagebtn(item)}>Add to card</button></div>
                                         <div className="col">Quantity</div>
                                         <div className="col">
                                             <div className="btn-group" role="group" aria-label="Basic example">
                                                 <a
                                                     type="button"
                                                     className="btn btn-outline-success"
-                                                    onClick={() => handleDecrease(item)}
+                                                    // onClick={() => handleDecrease(item)}
                                                 >
                                                     <b>-</b>
                                                 </a>
@@ -110,7 +90,7 @@ export default function Dashbord() {
                                                 <a
                                                     type="button"
                                                     className="btn btn-outline-success"
-                                                    onClick={() => handleIncrease(item)}
+                                                    // onClick={() => handleIncrease(item)}
                                                 >
                                                     <b>+</b>
                                                 </a>
@@ -122,15 +102,6 @@ export default function Dashbord() {
                         </div>
                     ))}
                 </div>
-                <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                    <li className="page-item"><a className="page-link">Previous</a></li>
-                    <li className="page-item"><a className="page-link">1</a></li>
-                    <li className="page-item"><a className="page-link">2</a></li>
-                    <li className="page-item"><a className="page-link">3</a></li>
-                    <li className="page-item"><a className="page-link">Next</a></li>
-                </ul>
-            </nav>
             </div>
         </>
     );

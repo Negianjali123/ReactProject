@@ -98,6 +98,7 @@
   border-right-color:  var(--bs-info-text-emphasis);    /* and on right border to form semi-circle */
   animation: spin 1s linear infinite;
   margin: 2rem auto;
+  /* 👆  */
 }
 @keyframes spin {
   0% { transform: rotate(0deg); }

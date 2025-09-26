@@ -8,6 +8,7 @@ const CardSlice = createSlice({                  // createSlice is used to creat
     addItem: (state, action) => {
       console.log("action.payload", action.payload);
      
+      
       // return state.map(item =>
       //   item.id === action.id ? { ...item, value: newValue } : item
       // );

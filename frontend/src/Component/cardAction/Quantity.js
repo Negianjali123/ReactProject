@@ -10,6 +10,7 @@ const CardQuantitySlice = createSlice({                  // createSlice is used 
             return state.map((item) => {
                 if (item.id === action.id) {
                     return { ...item, QUANTITY: item.QUANTITY + 1 };
+            
                 }
                 return item;
             });
