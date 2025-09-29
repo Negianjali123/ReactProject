@@ -47,6 +47,7 @@ export default function Dashbord() {
                 }
             } catch (error) {
                 
+                
                 navigate('/');
             }
         };

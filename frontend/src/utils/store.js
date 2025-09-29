@@ -7,5 +7,4 @@ export const store = configureStore({
     Countmanage: QuantityReducer,
     // Add your slice reducers here
   },
-  
 });
