@@ -1,14 +1,16 @@
+
+import React from 'react';
 import { useEffect } from "react";
 
-export default function About(){
+ function About(){
     useEffect(()=>{ 
         console.log("About page is here");
     }
 )
-useEffect(()=>{ 
-    console.log("add [] About page is here");
-},[]
-)
+// useEffect(()=>{ 
+//     console.log("add [] About page is here");
+// },[]
+// )
     return(
         <>
         <h1>
@@ -17,3 +19,4 @@ useEffect(()=>{
         </>
     )
 }
+export default React.memo(About);
