@@ -1,10 +1,12 @@
+import React from 'react';
 import { useEffect,useContext,useState } from 'react';
 import '../App.css';
 import api from '../utils/api';
 import UserContext from './context/UserContext';
 import { decryptData } from '../utils/crypto';
+import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+function Navbar() {
     let { encryptedName } = useContext(UserContext);
     const [username, setUsername] = useState(null);
 
@@ -62,8 +64,11 @@ export default function Navbar() {
                         {username ? (
                             <>
                             <li className="nav-item dropdown">
-                                <a href='/user/addtocard'><img src="/images/add-to-card-icon.png" alt="Avatar" className="cardicon"/></a>                                
-                         </li>
+                                <Link to="/user/addtocard"><img src="/images/add-to-card-icon.png" alt="Avatar" className="cardicon"/></Link>
+                            </li>
+                            {/* <li className="nav-item dropdown">
+                                <Link href='/user/addtocard'><img src="/images/add-to-card-icon.png" alt="Avatar" className="cardicon"/></Link>                                
+                         </li> */}
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {username}
@@ -88,3 +93,4 @@ export default function Navbar() {
         </nav>
     )
 }
+export default React.memo(Navbar);
