@@ -15,12 +15,12 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
    
     if ((!encryptedName)) {
-      console.log("removing user in localStorage chala:", encryptedName);
+      // console.log("removing user in localStorage chala:", encryptedName);
       localStorage.removeItem("user");
       setEncryptedName('');
     }
     else {
-      console.log("Storing user in localStorage chala:", encryptedName);
+      // console.log("Storing user in localStorage chala:", encryptedName);
       localStorage.setItem("user", encryptedName);
   
       const storedUser = localStorage.getItem("user");

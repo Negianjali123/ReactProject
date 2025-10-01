@@ -10,7 +10,7 @@ export default function Home() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [fieldErrors, setfieldErrors] = useState({ email: '', password: '' })
-    const { encryptedName,setEncryptedName } = useContext(UserContext);
+    const {setEncryptedName } = useContext(UserContext);
     
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +32,7 @@ export default function Home() {
           }
         };
         checkSession();
-      }, []);
+      }, [navigate]);
       
       
     const handleSubmit = async (e) => {

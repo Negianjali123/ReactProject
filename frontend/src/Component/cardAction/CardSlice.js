@@ -22,22 +22,30 @@ const CardSlice = createSlice({                  // createSlice is used to creat
     },
     increment(state, action) {
       const existing  = state.items.find(item => item.id === action.payload.id);
-      console.log("action", action.payload );
-      console.log("existing", existing.QUANTITY );
+      // console.log("action", action.payload );
+      // console.log("existing", existing.QUANTITY );
      
-      if (existing ) {
+      if (existing && existing.QUANTITY >=1) {
         existing.QUANTITY += 1;
       } 
       // debugger;
     },
     decrement(state, action) {
       const existing = state.items.find(item => item.id === action.payload.id);
-      if (existing ) {
+      if (existing && existing.QUANTITY >1) {
         existing.QUANTITY -= 1;
       } 
     },
+    cookiesitem(state, action) {
+      console.log("action.payload", action.payload );
+      // debugger;
+      const existing = state.items.find(item => item.id === action.payload.id);
+      if (!existing) {
+        state.items.push({ ...action.payload});
+      } 
+    }
   },
 });
 
-export const { addtocard, removetocard,increment,decrement } = CardSlice.actions;
+export const { addtocard, removetocard,increment,decrement,cookiesitem } = CardSlice.actions;
 export default CardSlice.reducer;

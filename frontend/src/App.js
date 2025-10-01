@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserProvider from './Component/Provider/UserProvider';
+import CookieProvider from './Component/Provider/CookiesProvider';
 import Home from './Pages/home';
 import About from './Pages/about';
 import { Contact } from './Pages/contact';
@@ -26,8 +27,8 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product" element={<Product />} />
-            <Route path="/user/dashboard" element={<Dashbord />} />
-            <Route path="/user/addtocard" element={<AddToCard />} />
+            <Route path="/user/dashboard" element={<CookieProvider><Dashbord /> </CookieProvider>} />
+            <Route path="/user/addtocard" element={<CookieProvider><AddToCard /></CookieProvider>} />  
           </Routes>
           </UserProvider>
         </BrowserRouter>

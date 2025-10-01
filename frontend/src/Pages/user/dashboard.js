@@ -1,20 +1,39 @@
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 import api from "../../utils/api";
 import "../../App.css";
 import { Link, useNavigate } from 'react-router-dom';
 import cardData from "./card-data.json"; // Renamed to avoid naming conflict
 import { useDispatch,useSelector } from 'react-redux';
-import { addtocard,increment,decrement} from '../../Component/cardAction/CardSlice';
-// import { Link } from 'react-router-dom';
+import { addtocard,increment,decrement,cookiesitem} from '../../Component/cardAction/CardSlice';
+import { CookieContext } from '../../Component/Provider/CookiesProvider';
 // import { CountQuantity } from '../../Component/cardAction/Quantity';
 
 
 export default function Dashbord() {
+  const { handleSetCookie,cookies } = useContext(CookieContext);
   //  const items = useSelector(state => state.cart.items);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateitme = useSelector(state => state.Cardmanage.items);
-  console.log("items", stateitme);
+ 
+  // console.log("items", stateitme);
+  
+  useEffect(() => {
+    let valuestateitme = [];
+    if(stateitme.length > 0){
+      valuestateitme = stateitme;
+      if(valuestateitme)
+        {
+          handleSetCookie(valuestateitme);
+        }
+    }
+  }, [stateitme]);
+  useEffect(() => {
+    if(cookies.itemList){
+      dispatch(cookiesitem(cookies.itemList))
+    }
+  });
+  // const [loading, setLoading] = useState(false);
 
   // Effect to fetch dashboard data
   useEffect(() => {
@@ -52,7 +71,6 @@ export default function Dashbord() {
   //         </div>
   //     );
   // }
-
   return (
 
     <>
