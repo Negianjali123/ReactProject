@@ -21,11 +21,14 @@ const CardSlice = createSlice({                  // createSlice is used to creat
       console.log("existing",  state.items );
     },
     increment(state, action) {
-      const existing = state.items.find(item => item.id === action.payload.id);
-      console.log("existing", existing );
+      const existing  = state.items.find(item => item.id === action.payload.id);
+      console.log("action", action.payload );
+      console.log("existing", existing.QUANTITY );
+     
       if (existing ) {
         existing.QUANTITY += 1;
       } 
+      // debugger;
     },
     decrement(state, action) {
       const existing = state.items.find(item => item.id === action.payload.id);

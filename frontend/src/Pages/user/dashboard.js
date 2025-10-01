@@ -14,7 +14,7 @@ export default function Dashbord() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateitme = useSelector(state => state.Cardmanage.items);
-  // console.log("items", stateitme);
+  console.log("items", stateitme);
 
   // Effect to fetch dashboard data
   useEffect(() => {
@@ -41,6 +41,17 @@ export default function Dashbord() {
   const handleDecrease = (item) => {
     dispatch(decrement({ id: item.id }));
 };
+// const handleIncrease = (item) => {
+//   dispatch(increment({ id: item.id }));
+// };
+
+  // if (loading) {
+  //     return (
+  //         <div className="d-flex justify-content-center text-center app-loader">
+  //             <div className="loader"></div>
+  //         </div>
+  //     );
+  // }
 
   return (
 
@@ -88,7 +99,6 @@ export default function Dashbord() {
                        {stateitme.find(stateval => stateval.id === item.id)?.QUANTITY || 0}
                       </span>
                       <Link
-                        href="/"
                         type="button"
                         className="btn btn-outline-success"
                       onClick={() =>dispatch(increment({ id: item.id }))}
@@ -98,6 +108,7 @@ export default function Dashbord() {
                       </div>
                     </div>
                       </>
+                      
                     ) : (
                     <div className="col">
                       <button type="button" className="btn btn-warning" value={item.id}
