@@ -1,19 +1,17 @@
 import React from 'react';
-import { useDispatch,useSelector } from 'react-redux';
-import { removetocard} from '../../Component/cardAction/CardSlice';
-import { increment,decrement} from '../../Component/cardAction/CardSlice';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { removetocard, increment, decrement } from '../../Component/cardAction/CardSlice';
 
 export default function Addtocard() {
   const dispatch = useDispatch();
   const items = useSelector(state => state.Cardmanage.items);
+  console.log("items", items);
 
-  
-    const handleDecrease = (item) => {
-      dispatch(decrement({ id: item.id }));
+  const handleDecrease = (item) => {
+    dispatch(decrement({ id: item.id }));
   };
-  const handleIncrease = (item) => {
-    dispatch(increment({ id: item.id }));
-};
+
   return (
     <>
       {items.length === 0 ? (
@@ -46,29 +44,28 @@ export default function Addtocard() {
                       <div className="col">Quantity</div>
                       <div className="col">
                         <div className="btn-group" role="group" aria-label="Basic example">
-                          <a
+                          <Link
                             href="/"
                             type="button"
                             className="btn btn-outline-success"
-                          onClick={() => handleDecrease({ id: item.id })}
+                            onClick={() => handleDecrease({ id: item.id })}
                           >
                             <b>-</b>
-                          </a>
-                          <a
-                            href="/"
+                          </Link>
+                          <span
                             className="btn btn-outline-success"
                             style={{ pointerEvents: "none" }}
                           >
-                            {item.QUANTITY}
-                          </a>
-                          <a
+                            {items.find(stateval => stateval.id === item.id)?.QUANTITY || 0}
+                          </span>
+                          <Link
                             href="/"
                             type="button"
                             className="btn btn-outline-success"
-                          onClick={() => handleIncrease({ id: item.id })}
+                            onClick={() => dispatch(increment({ id: item.id }))}
                           >
                             <b>+</b>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
