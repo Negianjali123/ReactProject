@@ -1,39 +1,33 @@
-import { useEffect,useContext } from "react";
+import { useEffect, useContext } from "react";
 import api from "../../utils/api";
 import "../../App.css";
 import { Link, useNavigate } from 'react-router-dom';
 import cardData from "./card-data.json"; // Renamed to avoid naming conflict
-import { useDispatch,useSelector } from 'react-redux';
-import { addtocard,increment,decrement,cookiesitem} from '../../Component/cardAction/CardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addtocard, increment, decrement, cookiesitem } from '../../Component/cardAction/CardSlice';
 import { CookieContext } from '../../Component/Provider/CookiesProvider';
 // import { CountQuantity } from '../../Component/cardAction/Quantity';
 
 
 export default function Dashbord() {
-  const { handleSetCookie,cookies } = useContext(CookieContext);
+  const { handleSetCookie, cookies } = useContext(CookieContext);
   //  const items = useSelector(state => state.cart.items);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateitme = useSelector(state => state.Cardmanage.items);
- 
-  // console.log("items", stateitme);
-  
+
   useEffect(() => {
-    let valuestateitme = [];
-    if(stateitme.length > 0){
-      valuestateitme = stateitme;
-      if(valuestateitme)
-        {
-          handleSetCookie(valuestateitme);
-        }
+    if (cookies.itemList) {
+      dispatch(cookiesitem(cookies.itemList))
+      // debugger
+    }
+  }, [cookies]);
+
+  useEffect(() => {
+    if (stateitme.length > 0) {
+      handleSetCookie(stateitme);
     }
   }, [stateitme]);
-  useEffect(() => {
-    if(cookies.itemList){
-      dispatch(cookiesitem(cookies.itemList))
-    }
-  });
-  // const [loading, setLoading] = useState(false);
 
   // Effect to fetch dashboard data
   useEffect(() => {
@@ -54,15 +48,16 @@ export default function Dashbord() {
   }, [navigate]);
 
   const cardmanagebtn = (item) => {
+    // console.log("cardmanagebtn",item)
     dispatch(addtocard(item));
   }
 
   const handleDecrease = (item) => {
     dispatch(decrement({ id: item.id }));
-};
-// const handleIncrease = (item) => {
-//   dispatch(increment({ id: item.id }));
-// };
+  };
+  // const handleIncrease = (item) => {
+  //   dispatch(increment({ id: item.id }));
+  // };
 
   // if (loading) {
   //     return (
@@ -95,44 +90,44 @@ export default function Dashbord() {
                     <div className="col">{item.price}</div>
                   </div>
                   <div className="row mt-2">
-                    
+
                     {stateitme.map(i => i.id).includes(item.id) ? (
                       <>
-                       <div className="col">Quantity</div>
-                      <div className="col">
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                      <Link
-                        href="/"
-                        type="button"
-                        className="btn btn-outline-success"
-                      onClick={() => handleDecrease(item)}
-                      >
-                        <b>-</b>
-                      </Link>
-                      <span
-                        href="/"
-                        className="btn btn-outline-success"
-                        style={{ pointerEvents: "none" }}
-                       >
-                       {stateitme.find(stateval => stateval.id === item.id)?.QUANTITY || 0}
-                      </span>
-                      <Link
-                        type="button"
-                        className="btn btn-outline-success"
-                      onClick={() =>dispatch(increment({ id: item.id }))}
-                      >
-                        <b>+</b>
-                      </Link>
-                      </div>
-                    </div>
+                        <div className="col">Quantity</div>
+                        <div className="col">
+                          <div className="btn-group" role="group" aria-label="Basic example">
+                            <Link
+                              href="/"
+                              type="button"
+                              className="btn btn-outline-success"
+                              onClick={() => handleDecrease(item)}
+                            >
+                              <b>-</b>
+                            </Link>
+                            <span
+                              href="/"
+                              className="btn btn-outline-success"
+                              style={{ pointerEvents: "none" }}
+                            >
+                              {stateitme.find(stateval => stateval.id === item.id)?.QUANTITY || 0}
+                            </span>
+                            <Link
+                              type="button"
+                              className="btn btn-outline-success"
+                              onClick={() => dispatch(increment({ id: item.id }))}
+                            >
+                              <b>+</b>
+                            </Link>
+                          </div>
+                        </div>
                       </>
-                      
+
                     ) : (
-                    <div className="col">
-                      <button type="button" className="btn btn-warning" value={item.id}
-                      onClick={() => cardmanagebtn(item)}>Add to card</button>
-                    </div>)}
-                      
+                      <div className="col">
+                        <button type="button" className="btn btn-warning" value={item.id}
+                          onClick={() => cardmanagebtn(item)}>Add to card</button>
+                      </div>)}
+
                   </div>
                 </div>
               </div>

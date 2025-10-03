@@ -8,11 +8,13 @@ const CardSlice = createSlice({                  // createSlice is used to creat
   },
   reducers: {
     addtocard(state, action) {
-      console.log("state", state);
+      console.log("state", action.payload);
       const existing = state.items.find(item => item.id === action.payload.id);
       if (existing) {
+        console.log("if cahla");
         existing.QUANTITY += 1;
       } else {
+        console.log("else chala");
         state.items.push({ ...action.payload, QUANTITY: 1 });
       }
     },
@@ -37,12 +39,13 @@ const CardSlice = createSlice({                  // createSlice is used to creat
       } 
     },
     cookiesitem(state, action) {
-      console.log("action.payload", action.payload );
-      // debugger;
-      const existing = state.items.find(item => item.id === action.payload.id);
-      if (!existing) {
-        state.items.push({ ...action.payload});
-      } 
+      action.payload.forEach((newItem) => {
+        const exists = state.items.find(item => item.id === newItem.id);
+        if (!exists) {
+          state.items.push({ ...newItem });
+        }
+      });
+      
     }
   },
 });

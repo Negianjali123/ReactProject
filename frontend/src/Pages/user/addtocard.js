@@ -1,12 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removetocard, increment, decrement } from '../../Component/cardAction/CardSlice';
+import { removetocard, increment, decrement,cookiesitem } from '../../Component/cardAction/CardSlice';
+import { CookieContext } from '../../Component/Provider/CookiesProvider';
+import { useEffect, useContext } from "react";
 
 export default function Addtocard() {
+  const { handleSetCookie, cookies } = useContext(CookieContext);
   const dispatch = useDispatch();
   const items = useSelector(state => state.Cardmanage.items);
-  console.log("items", items);
+  useEffect(() => {
+      if (cookies.itemList) {
+        dispatch(cookiesitem(cookies.itemList))
+        // debugger
+      }
+    }, [cookies]);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      handleSetCookie(items);
+    }
+  }, [items]);
+    
+  // console.log("items", items);
 
   const handleDecrease = (item) => {
     dispatch(decrement({ id: item.id }));
