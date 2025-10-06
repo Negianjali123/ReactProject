@@ -9,12 +9,12 @@ export const CookieProvider = ({ children }) => {
 
   const handleSetCookie = (item) => {
     setCookie('itemList', item, { path: '/', maxAge: 3600 });
-    console.log(`Cookie set: ${item}`);
+    // console.log(`Cookie set: ${item}`);
   };
 
   const handleRemoveCookie = () => {
     removeCookie('itemList');
-    console.log('Cookie removed');
+    // console.log('Cookie removed');
   };
 
   return (

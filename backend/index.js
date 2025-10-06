@@ -5,8 +5,13 @@ const PORT = 7000;
 import { createSession} from './pages/session.js';
 import { authenticateUser } from './pages/middleware/auth.js';
 import userRouter  from './Routes/dashbord.js';
+import paymentRouter from './Routes/payment.js';
 import Register from './models/Registration.js';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
+const MERCHANT_KEY = 'iV8n95';
+const SALT = 'HmY3XkAh3IyKZ775zzzlo6AtC28tk575';
 app.use(cookieParser());
 import cors from 'cors'
 
@@ -68,6 +73,51 @@ app.post('/login', async (req, res) => {
   })
 
   app.use('/user', userRouter);
+  // app.use('/payment', paymentRouter);
+  // server.js (or hashGenerator.js)
+ 
+  
+ 
+  
+  function generateHash(data) {
+    /*
+      Hash string format:
+      hashString = key|txnid|amount|productinfo|firstname|email|||||||||||salt
+    */
+    const hashSequence = [
+      data.key,
+      data.txnid,
+      data.amount,
+      data.productinfo,
+      data.firstname,
+      data.email,
+      '', '', '', '', '', '', '', '', '','',      // 10 empty values
+      SALT,
+    ].join('|');
+  
+    // console.log("Hash sequence:", hashSequence); // Debugging line
+    // debugger;
+    return crypto.createHash('sha512').update(hashSequence).digest('hex');
+  }
+  
+  app.post('/generate-hash', (req, res) => {
+    console.log("Request body for hash generation:", req.body);
+    const paymentData = req.body;
+    // console.log("Received payment data for hash generation:", paymentData);
+  
+    // Validate required fields here (amount, txnid, etc)
+  
+    const hash = generateHash({
+      key: MERCHANT_KEY,
+      txnid: paymentData.txnid,
+      amount: paymentData.amount,
+      productinfo: paymentData.productinfo,
+      firstname: paymentData.firstname,
+      email: paymentData.email,
+    });
+  // console.log("Received payment data for hash generation:", paymentData);
+    res.json({ hash });
+  });
   
 app.listen(PORT, () => {
     console.log(`Server is listening at http://localhost:${PORT}`);

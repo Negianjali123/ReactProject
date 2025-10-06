@@ -20,7 +20,7 @@ userRouter.get('/dashboard', authenticateUser, async (req, res) => {
     }
   });
   userRouter.get('/logout',authenticateUser,async (req, res)=>{
-    console.log("Logout route hit");
+    // console.log("Logout route hit");
     res.clearCookie('session', { path: '/' });
     return res.json({ success: true, message: 'session is deleted' });
   });

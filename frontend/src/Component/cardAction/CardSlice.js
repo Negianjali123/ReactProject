@@ -8,19 +8,15 @@ const CardSlice = createSlice({                  // createSlice is used to creat
   },
   reducers: {
     addtocard(state, action) {
-      console.log("state", action.payload);
       const existing = state.items.find(item => item.id === action.payload.id);
       if (existing) {
-        console.log("if cahla");
         existing.QUANTITY += 1;
       } else {
-        console.log("else chala");
         state.items.push({ ...action.payload, QUANTITY: 1 });
       }
     },
     removetocard(state, action) {
       state.items = state.items.filter(item => item.id !== action.payload.id);
-      console.log("existing",  state.items );
     },
     increment(state, action) {
       const existing  = state.items.find(item => item.id === action.payload.id);

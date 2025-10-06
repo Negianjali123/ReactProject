@@ -1,33 +1,55 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removetocard, increment, decrement,cookiesitem } from '../../Component/cardAction/CardSlice';
+import { removetocard, increment, decrement, cookiesitem } from '../../Component/cardAction/CardSlice';
 import { CookieContext } from '../../Component/Provider/CookiesProvider';
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
+import CalculatePayment from '../../Component/CalculatePayment';
+import PayUPayment from '../../Component/Payment/Payu';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
 
 export default function Addtocard() {
+  const navigate = useNavigate();
   const { handleSetCookie, cookies } = useContext(CookieContext);
+  const [startPayment, setStartPayment] = useState(false);
+
+
   const dispatch = useDispatch();
+  // example if coming from state
+  // const [paymentval, setPaymentval] = useState('');
+
   const items = useSelector(state => state.Cardmanage.items);
   useEffect(() => {
-      if (cookies.itemList) {
-        dispatch(cookiesitem(cookies.itemList))
-        // debugger
-      }
-    }, [cookies]);
+    if (cookies.itemList) {
+      dispatch(cookiesitem(cookies.itemList))
+      // setPaymentval(<CalculatePayment />);
+      // setPaymentval(10)
+      // debugger
+    }
+  }, [cookies]);
 
   useEffect(() => {
     if (items.length > 0) {
       handleSetCookie(items);
     }
   }, [items]);
-    
+
   // console.log("items", items);
 
   const handleDecrease = (item) => {
     dispatch(decrement({ id: item.id }));
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+  };
+  const handlePayment = () => {
+    navigate('/user/Payment'); // trigger payment component render
+  };
   return (
     <>
       {items.length === 0 ? (
@@ -90,12 +112,27 @@ export default function Addtocard() {
               </div>
             ))}
           </div>
+          <div className='container '>
+            <form action="/login" method="POST" className="" onSubmit={handleSubmit}>
+              <div className='row'>
+                <div className='col'>
+                  items Price
+                </div>
+                <div className='col text-end'><CalculatePayment /></div>
+              </div>
+              <div className='row'>
+                <div className='col'>
+                  <div className='d-flex justify-content-center'>
+                    <button type="submit" className="text-center btn btnhover w-20 mb-3"  onClick={() => handlePayment()}>Payment </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       )
       }
 
     </>
-
-
   );
 }

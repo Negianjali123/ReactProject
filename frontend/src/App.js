@@ -9,7 +9,8 @@ import Navbar from './Component/Navbar';
 import Dashbord from './Pages/user/dashboard';
 import Registration from './Pages/registration';
 import AddToCard from './Pages/user/addtocard';
-import Product from './Pages/product';
+import PayUPayment from './Component/Payment/Payu';
+
 import './App.css';
 
 function App() {
@@ -19,18 +20,19 @@ function App() {
         <UserProvider>
           {/* Navigation */}
           <Navbar />
+          </UserProvider>
           {/* <Home /> */}
           {/* Routes */}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<UserProvider><Home /></UserProvider>} />
             <Route path="/about" element={<About />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/user/dashboard" element={<CookieProvider><Dashbord /> </CookieProvider>} />
-            <Route path="/user/addtocard" element={<CookieProvider><AddToCard /></CookieProvider>} />  
+            <Route path="/user/dashboard" element={<UserProvider><CookieProvider><Dashbord/></CookieProvider> </UserProvider>} />
+            <Route path="/user/addtocard" element={<CookieProvider><AddToCard/></CookieProvider>} /> 
+            <Route path="/user/Payment" element={<CookieProvider><PayUPayment/></CookieProvider>} />  
           </Routes>
-          </UserProvider>
+         
         </BrowserRouter>
       
     </>

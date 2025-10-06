@@ -6,8 +6,8 @@ import cardData from "./card-data.json"; // Renamed to avoid naming conflict
 
 // Reducer function
 const reducert = (state, action) => {
-    console.log("state", state);
-    console.log("action", action);
+    // console.log("state", state);
+    // console.log("action", action);
     switch (action.type) {
         case "INCREASE":
             return state.map((item) => {
@@ -56,7 +56,7 @@ export default function Dashbord() {
 
 
     const handleIncrease = (item) => {
-        console.log("item", item);
+        // console.log("item", item);
         dispatch({ type: "INCREASE", id: item.id });
     };
 
